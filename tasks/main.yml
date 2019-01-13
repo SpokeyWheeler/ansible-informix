@@ -1,2 +1,19 @@
 ---
 # tasks file for informix
+
+# these tasks are always done
+
+- name: setup Informix group and user
+  include: user.yml
+
+# these tasks are done for clients and CMs
+
+# these tasks are done for all servers
+
+# these tasks are done for the primary
+
+# these tasks are done for all secondaries
+
+# these tasks are done for the HDR secondary
+
+# these tasks are done for the CMs

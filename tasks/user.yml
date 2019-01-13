@@ -1,0 +1,16 @@
+---
+
+- name: create informix group
+  group:
+    name: informix
+    state: present
+    system: false
+
+- name: create informix user
+  user:
+    home: /opt/informix
+    group: informix
+    name: informix
+    shell: /bin/bash
+    state: present
+    system: false

@@ -1,2 +1,11 @@
 ---
 # handlers file for informix
+
+- name: start informix
+  service: name=informix state=enabled
+  when: informix_use_service|bool
+
+- name: stop informix
+  service: name=informix state=stopped
+  when: informix_use_service|bool
+

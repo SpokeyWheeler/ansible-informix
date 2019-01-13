@@ -1,2 +1,14 @@
 ---
 # defaults file for informix
+
+install-media-path: "~"
+client-install-file: "hcl.csdk.4.50.FC1B1.LNX.tar.gz"
+jdbc-install-file: "hcl.jdbc.4.50.JC1B1.ALL.tar.gz"
+server-install-file: "hcl.ids.14.10.FC1B1.LNX.tar.gz"
+
+informix-csdk-version: "4.50.FC1B1"
+informix-jdbc-version: "4.50.FC1B1"
+informix-server-version: "14.10.FC1B1"
+
+informix-environment-size: "medium"
+informix-wa-enable: "false"
