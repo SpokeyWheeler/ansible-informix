@@ -1,0 +1,10 @@
+all:
+  clients:
+    hosts:
+      zinaida.co.uk
+  csdk:
+    hosts:
+      zinaida.co.uk
+  database:
+    hosts:
+      zinaida.co.uk
