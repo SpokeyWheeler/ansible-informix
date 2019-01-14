@@ -3,6 +3,20 @@
 
 # these tasks are always done
 
+- name: set seinux permissive
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: install EPEL
+  yum:
+    name: epel-release
+    state: present
+
+- name: install lvm2
+  yum:
+    name: lvm2
+
 - name: setup Informix group and user
   include: user.yml
 
