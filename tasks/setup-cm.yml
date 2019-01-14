@@ -1,0 +1,7 @@
+---
+- debug:
+    var: grp
+
+- debug:
+    var: inventory_hostname
+

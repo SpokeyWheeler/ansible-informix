@@ -1,2 +1,6 @@
 ---
-- name: create directories for server install
+- debug:
+    var: grp
+
+- debug:
+    var: inventory_hostname

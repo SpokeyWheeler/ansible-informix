@@ -3,7 +3,7 @@
 
 # these tasks are always done
 
-- name: set seinux permissive
+- name: set selinux permissive
   selinux:
     policy: targeted
     state: permissive
@@ -20,14 +20,64 @@
 - name: setup Informix group and user
   include: user.yml
 
+# these tasks are done for JDBC installs
+
+- name: create jdbc install target directories
+  include: jdbc-directories.yml
+  when: "'jdbc' in grp"
+
+- name: install jdbc
+  include: install-jdbc.yml
+  when: "'jdbc' in grp"
+
 # these tasks are done for clients and CMs
+
+- name: create client install target directories
+  include: csdk-directories.yml
+  when: "'clients' in grp or 'connectionmanagers' in grp"
+
+- name: install CSDK
+  include: install-csdk.yml
+  when: "'clients' in grp or 'connectionmanagers' in grp"
+
+- name: configure CSDK
+  include: setup-csdk.yml
+  when: "'clients' in grp or 'connectionmanagers' in grp"
 
 # these tasks are done for all servers
 
+- name: create server install target directories
+  include: server-directories.yml
+  when: "'servers' in grp"
+
+- name: install server
+  include: install-server.yml
+  when: "'servers' in grp"
+
+- name: configure server
+  include: setup-server.yml
+  when: "'servers' in grp"
+
 # these tasks are done for the primary
+
+- name: configure primary
+  include: setup-primary.yml
+  when: "inventory_hostname in primary"
 
 # these tasks are done for all secondaries
 
+- name: configure RSS
+  include: setup-RSS.yml
+  when: "inventory_hostname not in primary and 'servers' in grp"
+
 # these tasks are done for the HDR secondary
 
+- name: configure HDR
+  include: setup-hdr.yml
+  when: "inventory_hostname in hdr"
+
 # these tasks are done for the CMs
+- name: configure connection managers
+  include: setup-cm.yml
+  when: "'connectionmanagers' in grp"
+
