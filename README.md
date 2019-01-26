@@ -1,24 +1,20 @@
 Informix
 ========
 
-This role will install Informix, from a single node, to a HDR and / or RSS cluster, with or without a configurable number of Connection Managers.
+This role will (eventually) install Informix, from a single node, to an HDR and / or RSS cluster, with or without a configurable number of Connection Managers.
 
-Because of the complexity of the cluster, if you try and run this against an existing cluster, it will just abort wherever it sensibly can. This isn't currently intended to add nodes to a cluster, a future version or separate role might do that.
-
-Similiarly, if you want to upgrade, you will need a different role, which is also in the pipeline.
-
-Future releases might also ddress ER and Grid. Might.
-
-Because SDS is such a bespoke implementation, it's unlikely that I'll ever get around to this. :-)
+I've tried to make it CI-friendly, but that's a pretty vague requiremment.
 
 Requirements
 ------------
 
 It may be stating the obvious, but this does require your own licensed version(s) of Informix. No Informix is supplied with this role.
 
-This has only been tested with HCL Informix, but I can't imagine any reason IBM Informix wouldn't work. Furthermore, I've developed this using the very latest 12.10, but I can't see any reason that it wouldn't work for any currently supported version.
+My focus has been on HCL Informix, but I have also tried to make sure IBM Informix will work. Furthermore, I've developed this using the very latest 12.10, but I can't see any reason that it wouldn't work for any currently supported version.
 
-I have written this to work with Centos 7, but RHEL 7 and the equivalent Fedora should also work. It's expecting to use bash, because I'm lazy. I might add other shells, but it's very unlikely. Also, it uses systemd to manage the service.
+I have written this to work with Centos 7, but RHEL 7 and the equivalent Fedora should also work. I will try and get round to Debian / Ubuntu / OpenSuSE. 
+
+It's expecting to use bash. Also, it uses systemd to manage the service.
 
 Role Variables
 --------------
@@ -41,7 +37,9 @@ Large: 16-core, suitable for large OLTP uses
 
 Extra-large: 48-core, suitable for very large OLTP uses
 
-Mixed: 16-core mixed OLTP / DSS use
+Mixed-small: 16-core mixed OLTP / DSS use
+
+Mixed-medium: 48-core mixed OLTP / DSS use
 
 DSS-small: Quad-core, suitable for small DSS uses
 
@@ -61,11 +59,14 @@ No other Ansible Galaxy roles are used at this time.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: spokeywheeler.informixservers }
+         - { role: spokeywheeler.informixclients }
+         - { role: spokeywheeler.informixprimary }
+         - { role: spokeywheeler.informixrss }
+         - { role: spokeywheeler.informixhdr }
+         - { role: spokeywheeler.informixcm }
 
 License
 -------
