@@ -7,15 +7,18 @@
   selinux:
     policy: targeted
     state: permissive
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: install EPEL
   yum:
     name: epel-release
     state: present
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: install lvm2
   yum:
     name: lvm2
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: setup Informix group and user
   include: user.yml

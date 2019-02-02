@@ -1,2 +1,167 @@
 ---
 # vars file for informix
+
+vendor: hcl # could also be ibm, change if needed
+num_users: 10 # expected number of users
+largest_table: 1048576 # expected largest table in KB (number of rows * table width)
+
+# directories
+
+# the intention is that you will be able to have different versions of Informix on the server simultaneously to allow
+# you to upgrade and downgrade in an emergency. products will be installed in a path like
+# /opt/ibm/server/12.10.FC9DE and a link will be make from /opt/ibm/server/informixdir to whichever version you want to run
+# notice that the data, logs, backups, etc are all kept outside of informixdir to allow them to persist across versions
+
+# starting point
+informix_home_path: "/opt/{{ vendor }}"
+# if we use jdbc, what will $INFORMIXDIR be?
+informix_jdbc_path: "{{ informix_home_path }}/jdbc/informixdir"
+# if we use the client, what will $INFORMIXDIR be?
+informix_client_path: "{{ informix_home_path }}/client/informixdir"
+# if we use the server, what will $INFORMIXDIR be?
+informix_server_path: "{{ informix_home_path }}/server/informixdir"
+
+# jdbc variables
+
+# where do we install this jdbc?
+informix_jdbc_install_dir: "{{ informix_home_dir }}/jdbc/{{ informix_jdbc_version }}"
+# where do we download the media to?
+informix_jdbc_download_dir: "{{ informix_home_dir }}/jdbc-download-tmp"
+# what's the name of the install file?
+informix_jdbc_pkg: "jdbc-{{ informix_jdbc_version }}-x86_64.tar"
+# where do we get it from?
+informix_jdbc_url: "{{ software_url }}/software/ibm/informix/jdbc/x86_64"
+
+# client variables
+
+# where do we install this client?
+informix_client_install_dir: "{{ informix_home_dir }}/client/{{ informix_client_version }}"
+# where do we download the media to?
+informix_client_download_dir: "{{ informix_home_dir }}/client-download-tmp"
+# what's the name of the install file?
+informix_client_pkg: "clientsdk-{{ informix_client_version }}-x86_64.tar"
+# where do we get it from?
+informix_client_url: "{{ software_url }}/software/ibm/informix/clientsdk/x86_64"
+
+# server variables 
+
+# path for this install
+informix_server_install_path: "{{ informix_home_path }}/server/{{ informix_server_version }}"
+# where do we put the media?
+informix_server_download_path: "{{ informix_home_path }}/server-download-tmp"
+# path for permanent links and files
+informix_server_data_path: "{{ informix_home_path }}/data"
+# online.log and online.con go here
+informix_server_log_path: "{{ informix_server_data_path }}/log"
+# temp directory
+informix_server_tmp_path: "{{ informix_server_data_path }}/tmp"
+# dbspaces go here
+informix_server_dbspace_path: "{{ informix_server_data_path }}/dbspaces"
+# starting point for backups
+informix_server_backup_path:  "{{ informix_server_data_path }}/backups"
+# log backups
+informix_server_logbkup_path: "{{ informix_server_backup_path }}/logicallogs"
+# data backups
+informix_server_databkup_path: "{{ informix_server_backup_path }}/ontapeL0"
+
+# files
+
+# onconfig
+informix_server_onconfig: "onconfig.ansible"
+
+# server installation package tarball
+informix_server_pkg: "{{ vendor }}.ids.{{ informix_server_version }}.lnx.tar.gz"
+
+# host names and IP addresses
+
+# primary
+informix_server_primary_hostname: "informix-01"
+informix_server_primary_ip: "{{ hostvars[informix_server_primary_hostname].ansible_default_ipv4.address }}"
+# secondary
+informix_server_secondary_hostname: "informix-02"
+informix_server_secondary_ip: "{{ hostvars[informix_server_secondary_hostname].ansible_default_ipv4.address }}"
+
+# any other servers will be RSS
+
+# per server sqlhosts info
+
+# server number
+informix_server_no: "{{ inventory_hostname.split('.')[0][-2:] }}"
+# shared memory connection
+informix_server_name_shm: "ifxdb{{ informix_server_no }}_shm"
+# tcp connection
+informix_server_name_tcp: "ifxdb{{ informix_server_no }}"
+# optional hdr tcp connection
+informix_server_name_hdr: "ifxdb{{ informix_server_no }}_hdr"
+
+# dbspace information
+
+# physical log
+informix_server_plogdbs_name: plogdbs
+informix_server_plogdbs_size: 4194304    # = 4GB
+informix_server_plogdbs_reserved_size: 106 # with a default 2k pagesize
+
+# logical logs
+informix_server_llogdbs_name: llogdbs
+informix_server_llogdbs_size: "{{ (num_users*largest_table)|int|abs }}"  # = 10GB for default 10 users, 1GB largest table
+informix_server_llog_size: 100000    # = 100MB
+informix_server_llog_count: "{{ (informix_server_llogdbs_size/100000)|int|abs }}"
+
+# opinionated decision: any table wider than 15 bytes will overflow a 4k page with 255 rows, Informix allows a maximum of 255 rows per page.
+# indexes have no limit to the number of rows per page
+# hence there is little value in the default 2k page size and we only provision 4k for narrow tables, 8k for wide tables and 16k for indexes
+# also, we provision 4k page temp spaces, 8k are optional
+
+# dbspace size must be a multiple of page size
+
+informix_server_tempdbs4k:
+  dbspace: "tempdbs4k"
+  page_size: 4
+  size: 4194304                   # = 4GB
+
+# optional spaces
+
+# informix_server_tempdbs8k:
+  # dbspace: "tempdbs8k"
+  # page_size: 8
+  # size: 4194304                   # = 4GB
+
+# informix_server_tmpsbspace2k:
+  # dbspace: tmpsbspace2k
+  # page_size: 2
+  # size: 2097152                   # = 2GB
+
+# informix_server_sbspace2k:
+  # dbspace: sbspace2k
+  # page_size: 2
+  # size: 2097152                   # = 2GB
+
+# informix_server_syssbspace2k:
+  # dbspace: syssbspace2k
+  # page_size: 2
+  # size: 2097152                   # = 2GB
+
+### data
+
+informix_server_datadbs4k:
+  dbspace: datadbs4K
+  page_size: 4
+  size: 8388608                   # = 8GB
+
+informix_server_datadbs8k:
+  dbspace: datadbs8K
+  page_size: 8
+  size: 8388608                   # = 8GB
+
+informix_server_idxdbs16k:
+  dbspace: idxdbs16K
+  page_size: 16
+  size: 8388608                   # = 8GB
+
+# backup config params
+informix_server_tapedev: "{{ informix_server_databkup_path }}"
+informix_server_ltapedev: "{{ informix_server_logbkup_path }}"
+
+# optional
+# informix_server_mode_users: "dba_user"
+
