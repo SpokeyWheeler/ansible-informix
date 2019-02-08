@@ -5,3 +5,14 @@
 - debug:
     var: inventory_hostname
 
+- name: create jdbc directories
+  file:
+    state: directory
+    owner: informix
+    group: informix
+    mode: 0755
+    path: "{{ item }}"
+  with_items:
+  - "{{ informix_jdbc_install_path }}"
+  - "{{ informix_jdbc_download_path }}"
+

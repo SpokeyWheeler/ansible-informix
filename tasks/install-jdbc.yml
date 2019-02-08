@@ -4,3 +4,8 @@
 
 - debug:
     var: inventory_hostname
+
+- name: copy install media onto server
+  copy:
+    dest: "{{ informix_jdbc_install_path }}"
+    src: "{{ install_media_path }}/ {{ jdbc_install_file }}"

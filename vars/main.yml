@@ -13,7 +13,7 @@ largest_table: 1048576 # expected largest table in KB (number of rows * table wi
 # notice that the data, logs, backups, etc are all kept outside of informixdir to allow them to persist across versions
 
 # starting point
-informix_home_path: "/opt/{{ vendor }}"
+informix_home_path: "/opt/{{ vendor }}/informix"
 # if we use jdbc, what will $INFORMIXDIR be?
 informix_jdbc_path: "{{ informix_home_path }}/jdbc/informixdir"
 # if we use the client, what will $INFORMIXDIR be?
@@ -24,9 +24,9 @@ informix_server_path: "{{ informix_home_path }}/server/informixdir"
 # jdbc variables
 
 # where do we install this jdbc?
-informix_jdbc_install_dir: "{{ informix_home_dir }}/jdbc/{{ informix_jdbc_version }}"
+informix_jdbc_install_path: "{{ informix_home_path }}/jdbc/{{ informix_jdbc_version }}"
 # where do we download the media to?
-informix_jdbc_download_dir: "{{ informix_home_dir }}/jdbc-download-tmp"
+informix_jdbc_download_path: "{{ informix_home_path }}/jdbc-download-tmp"
 # what's the name of the install file?
 informix_jdbc_pkg: "jdbc-{{ informix_jdbc_version }}-x86_64.tar"
 # where do we get it from?
@@ -35,9 +35,9 @@ informix_jdbc_url: "{{ software_url }}/software/ibm/informix/jdbc/x86_64"
 # client variables
 
 # where do we install this client?
-informix_client_install_dir: "{{ informix_home_dir }}/client/{{ informix_client_version }}"
+informix_client_install_path: "{{ informix_home_path }}/client/{{ informix_client_version }}"
 # where do we download the media to?
-informix_client_download_dir: "{{ informix_home_dir }}/client-download-tmp"
+informix_client_download_path: "{{ informix_home_path }}/client-download-tmp"
 # what's the name of the install file?
 informix_client_pkg: "clientsdk-{{ informix_client_version }}-x86_64.tar"
 # where do we get it from?
