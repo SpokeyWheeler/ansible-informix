@@ -165,3 +165,8 @@ informix_server_ltapedev: "{{ informix_server_logbkup_path }}"
 # optional
 # informix_server_mode_users: "dba_user"
 
+#- vars file for informix
+
+informix_jdbc_version: 4.50.FC1B1
+informix_csdk_version: 4.50.FC1B1
+informix_server_version: 14.10.FC1B1
