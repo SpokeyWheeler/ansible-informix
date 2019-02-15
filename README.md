@@ -61,12 +61,9 @@ Example Playbook
 
     - hosts: all
       roles:
-         - { role: spokeywheeler.informixservers }
-         - { role: spokeywheeler.informixclients }
-         - { role: spokeywheeler.informixprimary }
-         - { role: spokeywheeler.informixrss }
-         - { role: spokeywheeler.informixhdr }
-         - { role: spokeywheeler.informixcm }
+         - { role: spokeywheeler.csdk }
+         - { role: spokeywheeler.ids }
+         - { role: spokeywheeler.jdbc }
 
 License
 -------
@@ -76,4 +73,4 @@ MIT
 Author Information
 ------------------
 
-https://github.com/SpokeyWheeler
+<https://github.com/SpokeyWheeler>
