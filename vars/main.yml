@@ -43,7 +43,7 @@ informix_client_pkg: "clientsdk-{{ informix_client_version }}-x86_64.tar"
 # where do we get it from?
 informix_client_url: "{{ software_url }}/software/ibm/informix/clientsdk/x86_64"
 
-# server variables 
+# server variables
 
 # path for this install
 informix_server_install_path: "{{ informix_home_path }}/server/{{ informix_server_version }}"
