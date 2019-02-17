@@ -9,7 +9,8 @@ largest_table: 1048576 # expected largest table in KB (number of rows * table wi
 
 # the intention is that you will be able to have different versions of Informix on the server simultaneously to allow
 # you to upgrade and downgrade in an emergency. products will be installed in a path like
-# /opt/ibm/server/12.10.FC9DE and a link will be make from /opt/ibm/server/informixdir to whichever version you want to run
+# /opt/<hcl|ibm>/<client|jdbc|server>/<version> and a link will be made from /opt/<hcl|ibm>/<client|jdbc|server>/informixdir
+# to whichever version you want to run
 # notice that the data, logs, backups, etc are all kept outside of informixdir to allow them to persist across versions
 
 # starting point
@@ -49,16 +50,17 @@ informix_client_url: "{{ software_url }}/software/ibm/informix/clientsdk/x86_64"
 informix_server_install_path: "{{ informix_home_path }}/server/{{ informix_server_version }}"
 # where do we put the media?
 informix_server_download_path: "{{ informix_home_path }}/server-download-tmp"
+
 # path for permanent links and files
-informix_server_data_path: "{{ informix_home_path }}/data"
+informix_persistent_path: "{{ informix_home_path }}/do_not_delete"
 # online.log and online.con go here
-informix_server_log_path: "{{ informix_server_data_path }}/log"
+informix_server_log_path: "{{ informix_persistent_path }}/log"
 # temp directory
-informix_server_tmp_path: "{{ informix_server_data_path }}/tmp"
+informix_server_tmp_path: "{{ informix_persistent_path }}/tmp"
 # dbspaces go here
-informix_server_dbspace_path: "{{ informix_server_data_path }}/dbspaces"
+informix_server_dbspace_path: "{{ informix_persistent_path }}/dbspaces"
 # starting point for backups
-informix_server_backup_path:  "{{ informix_server_data_path }}/backups"
+informix_server_backup_path:  "{{ informix_persistent_path }}/backups"
 # log backups
 informix_server_logbkup_path: "{{ informix_server_backup_path }}/logicallogs"
 # data backups

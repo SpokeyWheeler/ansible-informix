@@ -7,7 +7,6 @@
   selinux:
     policy: targeted
     state: permissive
-  when: ansible_facts['os_family'] == "RedHat"
 
 - name: install EPEL
   yum:
