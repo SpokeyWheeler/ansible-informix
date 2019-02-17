@@ -12,11 +12,19 @@
   yum:
     name: epel-release
     state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: install lvm2
   yum:
     name: lvm2
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: setup Informix group and user
