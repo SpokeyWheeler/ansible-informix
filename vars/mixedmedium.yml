@@ -1,0 +1,190 @@
+ROOTSIZE 300000
+
+PHYSFILE 50000
+PLOG_OVERFLOW_PATH  $INFORMIXDIR/tmp
+PHYSBUFF 128
+
+LOGFILES 6
+LOGSIZE 10000
+DYNAMIC_LOGS 2
+LOGBUFF 64
+
+LTXHWM 70
+LTXEHWM 80
+
+MSGPATH $INFORMIXDIR/tmp/online.log
+MSG_DATE 0
+CONSOLE $INFORMIXDIR/tmp/online.con
+
+DBSPACETEMP 
+SBSPACETEMP
+
+SBSPACENAME
+SYSSBSPACENAME
+ONDBSPACEDOWN 2
+
+SERVERNUM 0
+DBSERVERNAME 
+DBSERVERALIASES
+
+NETTYPE ipcshm,1,50,CPU
+MAX_INCOMPLETE_CONNECTIONS 1024
+FASTPOLL 1
+NUMFDSERVERS 4
+NS_CACHE host=900,service=900,user=900,group=900
+DRDA_COMMBUFFSIZE 32
+
+MULTIPROCESSOR 0
+VPCLASS cpu,num=1,noage
+VP_MEMORY_CACHE_KB 0
+SINGLE_CPU_VP 0
+
+AUTO_TUNE 1
+
+CLEANERS 8
+DIRECT_IO 0
+
+LOCKS 20000
+DEF_TABLE_LOCKMODE page 
+
+RESIDENT 0
+SHMVIRTSIZE 32656
+SHMADD 8192
+EXTSHMADD 8192
+SHMTOTAL 0
+
+TAPEDEV /dev/tapedev
+TAPEBLK 32
+TAPESIZE 0
+
+LTAPEDEV /dev/tapedev
+LTAPEBLK 32
+LTAPESIZE 0
+
+DD_HASHSIZE 31
+DD_HASHMAX  10
+
+DS_HASHSIZE 31
+DS_POOLSIZE 127
+
+PC_HASHSIZE 31
+PC_POOLSIZE 127
+
+###################################################################
+# STMT_CACHE         - Controls SQL statement caching. Acceptable
+#                      values are: 
+#                      0 Disabled
+#                      1 Enabled at the session level
+#                      2 All statements are cached
+# STMT_CACHE_HITS    - The number of times an SQL statement must be
+#                      executed before becoming fully cached.
+#                      0 indicates that all statements are
+#                      fully cached the first time.
+# STMT_CACHE_SIZE    - The size, in KB, of the SQL statement cache
+# STMT_CACHE_NOLIMIT - Controls additional memory consumption.
+#                      Acceptable values are:
+#                      0 Limit memory to STMT_CACHE_SIZE
+#                      1 Obtain as much memory, temporarily, as needed
+# STMT_CACHE_NUMPOOL - The number of pools for the SQL statement
+#                      cache. Acceptable value is a positive
+#                      integer between 1 and 256, inclusive.
+###################################################################
+
+STMT_CACHE 0
+STMT_CACHE_HITS 0
+STMT_CACHE_SIZE 512
+STMT_CACHE_NOLIMIT 0
+STMT_CACHE_NUMPOOL 1
+
+# USELASTCOMMITTED - Controls the committed read isolation level.
+#                    Acceptable values are:
+#                    - "NONE" Waits on a lock 
+#                    - "DIRTY READ" Uses the last committed value in 
+#                      place of a dirty read 
+#                    - "COMMITTED READ" Uses the last committed value 
+#                      in place of a committed read  
+#                    - "ALL" Uses the last committed value in place  
+#                      of all isolation levels that support the last
+#                      committed option 
+###################################################################
+
+USEOSTIME 0
+STACKSIZE 96
+ALLOW_NEWLINE 0
+USELASTCOMMITTED "NONE"
+
+BTSCANNER num=1,threshold=5000,rangesize=-1,alice=6,compression=default
+
+# DATASKIP            - Specifies whether to skip dbspaces when
+#                       processing a query. Acceptable values are:
+#                       - ALL Skip all unavailable fragments
+#                       - ON <dbspace1> <dbspace2>... Skip listed 
+#                         dbspaces
+#                       - OFF Do not skip dbspaces (default)
+###################################################################
+
+MAX_PDQPRIORITY 100
+DS_MAX_QUERIES
+DS_TOTAL_MEMORY
+DS_MAX_SCANS 1048576
+DS_NONPDQ_QUERY_MEM 256
+DATASKIP
+
+IFX_EXTEND_ROLE 1
+UNSECURE_ONSTAT
+ADMIN_USER_MODE_WITH_DBSA
+ADMIN_MODE_USERS
+
+PLCY_POOLSIZE 127
+PLCY_HASHSIZE 31
+USRC_POOLSIZE 127
+USRC_HASHSIZE 31
+
+###################################################################
+# Built-in Character Data Types Parameters
+###################################################################
+# SQL_LOGICAL_CHAR   - Enable/Disable the expansion of size
+#                      specification for built-in character data
+#                      types
+###################################################################
+
+SQL_LOGICAL_CHAR OFF
+
+ENCRYPT_HDR
+ENCRYPT_SMX
+ENCRYPT_MAC
+
+DRAUTO                  0
+HA_ALIAS
+HA_FOC_ORDER            SDS,HDR,RSS
+LOG_INDEX_BUILDS
+UPDATABLE_SECONDARY     0
+TEMPTAB_NOLOG           0
+DELAY_APPLY             0
+STOP_APPLY              0
+LOG_STAGING_DIR         
+RSS_FLOW_CONTROL        0
+SMX_NUMPIPES            1
+ENABLE_SNAPSHOT_COPY	0
+SMX_COMPRESS            0
+
+DUMPDIR $INFORMIXDIR/tmp
+DUMPSHMEM 1
+DUMPCNT 1
+
+STORAGE_FULL_ALARM 600,3
+
+QSTATS 0
+WSTATS 0
+
+SP_AUTOEXPAND 1
+SP_THRESHOLD 0
+SP_WAITTIME 30
+
+AUTOLOCATE 0
+
+REMOTE_SERVER_CFG 
+REMOTE_USERS_CFG 
+S6_USE_REMOTE_SERVER_CFG  0
+
+BUFFERPOOL default,buffers=10000,lrus=8,lru_min_dirty=50.00,lru_max_dirty=60.50
