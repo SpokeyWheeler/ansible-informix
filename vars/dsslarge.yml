@@ -16,16 +16,16 @@ MSGPATH $INFORMIXDIR/tmp/online.log
 MSG_DATE 0
 CONSOLE $INFORMIXDIR/tmp/online.con
 
-DBSPACETEMP 
-SBSPACETEMP
+DBSPACETEMP tempdbs
+SBSPACETEMP tempsbs
 
-SBSPACENAME
-SYSSBSPACENAME
+SBSPACENAME sbspace
+SYSSBSPACENAME syssbs
 ONDBSPACEDOWN 2
 
 SERVERNUM 0
-DBSERVERNAME 
-DBSERVERALIASES
+DBSERVERNAME informix
+DBSERVERALIASES informix_shm,informix_hdr
 
 NETTYPE ipcshm,1,50,CPU
 MAX_INCOMPLETE_CONNECTIONS 1024
@@ -45,7 +45,7 @@ CLEANERS 8
 DIRECT_IO 0
 
 LOCKS 20000
-DEF_TABLE_LOCKMODE page 
+DEF_TABLE_LOCKMODE row
 
 RESIDENT 0
 SHMVIRTSIZE 32656
@@ -72,7 +72,7 @@ PC_POOLSIZE 127
 
 ###################################################################
 # STMT_CACHE         - Controls SQL statement caching. Acceptable
-#                      values are: 
+#                      values are:
 #                      0 Disabled
 #                      1 Enabled at the session level
 #                      2 All statements are cached
@@ -98,14 +98,14 @@ STMT_CACHE_NUMPOOL 1
 
 # USELASTCOMMITTED - Controls the committed read isolation level.
 #                    Acceptable values are:
-#                    - "NONE" Waits on a lock 
-#                    - "DIRTY READ" Uses the last committed value in 
-#                      place of a dirty read 
-#                    - "COMMITTED READ" Uses the last committed value 
-#                      in place of a committed read  
-#                    - "ALL" Uses the last committed value in place  
+#                    - "NONE" Waits on a lock
+#                    - "DIRTY READ" Uses the last committed value in
+#                      place of a dirty read
+#                    - "COMMITTED READ" Uses the last committed value
+#                      in place of a committed read 
+#                    - "ALL" Uses the last committed value in place 
 #                      of all isolation levels that support the last
-#                      committed option 
+#                      committed option
 ###################################################################
 
 USEOSTIME 0
@@ -118,7 +118,7 @@ BTSCANNER num=1,threshold=5000,rangesize=-1,alice=6,compression=default
 # DATASKIP            - Specifies whether to skip dbspaces when
 #                       processing a query. Acceptable values are:
 #                       - ALL Skip all unavailable fragments
-#                       - ON <dbspace1> <dbspace2>... Skip listed 
+#                       - ON <dbspace1> <dbspace2>... Skip listed
 #                         dbspaces
 #                       - OFF Do not skip dbspaces (default)
 ###################################################################
@@ -162,7 +162,7 @@ UPDATABLE_SECONDARY     0
 TEMPTAB_NOLOG           0
 DELAY_APPLY             0
 STOP_APPLY              0
-LOG_STAGING_DIR         
+LOG_STAGING_DIR        
 RSS_FLOW_CONTROL        0
 SMX_NUMPIPES            1
 ENABLE_SNAPSHOT_COPY	0
@@ -183,8 +183,8 @@ SP_WAITTIME 30
 
 AUTOLOCATE 0
 
-REMOTE_SERVER_CFG 
-REMOTE_USERS_CFG 
+REMOTE_SERVER_CFG
+REMOTE_USERS_CFG
 S6_USE_REMOTE_SERVER_CFG  0
 
 BUFFERPOOL default,buffers=10000,lrus=8,lru_min_dirty=50.00,lru_max_dirty=60.50
