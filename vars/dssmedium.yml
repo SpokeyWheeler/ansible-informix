@@ -102,8 +102,8 @@ STMT_CACHE_NUMPOOL 1
 #                    - "DIRTY READ" Uses the last committed value in
 #                      place of a dirty read
 #                    - "COMMITTED READ" Uses the last committed value
-#                      in place of a committed read 
-#                    - "ALL" Uses the last committed value in place 
+#                      in place of a committed read
+#                    - "ALL" Uses the last committed value in place
 #                      of all isolation levels that support the last
 #                      committed option
 ###################################################################
@@ -162,7 +162,7 @@ UPDATABLE_SECONDARY     0
 TEMPTAB_NOLOG           0
 DELAY_APPLY             0
 STOP_APPLY              0
-LOG_STAGING_DIR        
+LOG_STAGING_DIR
 RSS_FLOW_CONTROL        0
 SMX_NUMPIPES            1
 ENABLE_SNAPSHOT_COPY	0
